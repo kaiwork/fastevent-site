@@ -31,6 +31,7 @@ export class MainPageComponent implements OnInit {
   getMember(){
   this.memberService.getMember().subscribe(response => {
     this.member = response;
+    this.toastr.success("Loaded data successfully !")
   },error => {
     this.toastr.error("Error in retrieving user data");
   });
