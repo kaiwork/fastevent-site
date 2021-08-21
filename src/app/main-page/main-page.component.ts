@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Member } from '../_models/member';
 import { MemberService } from '../_services/member.service';
@@ -13,7 +14,8 @@ import { MemberService } from '../_services/member.service';
 export class MainPageComponent implements OnInit {
 
   constructor(private toastr: ToastrService,private auth: AngularFireAuth,
-    private router: Router,private memberService: MemberService) { }
+    private router: Router,private memberService: MemberService, 
+    private cookieService: CookieService) { }
 
   member!: Member;
 
@@ -24,7 +26,7 @@ export class MainPageComponent implements OnInit {
   logout(){
     this.auth.signOut();
     this.router.navigate(['login']);
-    localStorage.removeItem("auth_token");
+    this.cookieService.delete('auth_token');
     this.toastr.success("logout successful");
   }
 
